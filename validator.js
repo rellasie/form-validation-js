@@ -2,8 +2,8 @@
 function Validator(options) {
 
     function validate(inputElement, rule) {
+        var errorElement = inputElement.parentElement.querySelector(options.errorSelector)
         var errorMessage = rule.test(inputElement.value)
-        var errorElement = inputElement.parentElement.querySelector('.form-message')
 
         if (errorMessage) {
             errorElement.innerText = errorMessage
@@ -14,6 +14,7 @@ function Validator(options) {
         }
     }
 
+    // get form's element
     var formElement = document.querySelector(options.form)
 
     if (formElement) {
@@ -22,15 +23,22 @@ function Validator(options) {
             var inputElement = formElement.querySelector(rule.selector)
 
             if (inputElement) {
+
+                // handle blur out of input
                 inputElement.onblur = function () {
                     validate(inputElement, rule)
+                }
+
+                // handle when a user add input
+                inputElement.oninput = function () {
+                    var errorElement = inputElement.parentElement.querySelector('.form-message')
+                    errorElement.innerText = ''
+                    inputElement.parentElement.classList.remove('invalid')
                 }
             }
         })
     }
 }
-
-
 
 // define rules
 /**
@@ -49,8 +57,9 @@ Validator.isRequired = function (selector) {
 Validator.isEmail = function (selector) {
     return {
         selector: selector,
-        test: function () {
-
+        test: function (value) {
+            var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+            return regex.test(value) ? undefined : 'Trường này phải là email'
         }
     }
 }
