@@ -1,32 +1,29 @@
 // Validator constructor function
 function Validator(options) {
 
+    function validate(inputElement, rule) {
+        var errorMessage = rule.test(inputElement.value)
+        var errorElement = inputElement.parentElement.querySelector('.form-message')
+
+        if (errorMessage) {
+            errorElement.innerText = errorMessage
+            inputElement.parentElement.classList.add('invalid')
+        } else {
+            errorElement.innerText = ''
+            inputElement.parentElement.classList.remove('invalid')
+        }
+    }
+
     var formElement = document.querySelector(options.form)
 
     if (formElement) {
-        options.rules.forEach(function(rule) {
+        options.rules.forEach(function (rule) {
             // console.log(rule.selector) // return name, email
             var inputElement = formElement.querySelector(rule.selector)
-            var errorElement = inputElement.parentElement.querySelector('.form-message')
-            
-            if (inputElement) {
-                inputElement.onblur = function() {
-                    // console.log('blur ' + rule.selector) // test to see what is blurred
-                    // console.log(inputElement.value) // take input value from keyboard
-                    
-                    // value: inputElement.value
-                    // test func: rule.test
-                    var errorMessage = rule.test(inputElement.value)
-                    
-                    if (errorMessage) {
-                        errorElement.innerText = errorMessage
-                        inputElement.parentElement.classList.add('invalid')
-                    } else {
-                        errorElement.innerText = ''
-                        inputElement.parentElement.classList.remove('invalid')
-                    }
 
-                
+            if (inputElement) {
+                inputElement.onblur = function () {
+                    validate(inputElement, rule)
                 }
             }
         })
@@ -39,7 +36,7 @@ function Validator(options) {
 /**
  * 1. When error -> return error message
  * 2. When valid -> return undefined
- * */ 
+ * */
 Validator.isRequired = function (selector) {
     return {
         selector: selector,
