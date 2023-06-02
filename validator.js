@@ -1,9 +1,20 @@
 // Validator constructor function
 function Validator(options) {
+    var selectorRules = {} // save all the rules here
 
     function validate(inputElement, rule) {
         var errorElement = inputElement.parentElement.querySelector(options.errorSelector)
-        var errorMessage = rule.test(inputElement.value)
+        var errorMessage
+
+        // get rules of selector
+        var rules = selectorRules[rule.selector]
+
+        // iterate through rules & check for errors
+        // if there's an error -> break the loop
+        for (var i = 0; i < rules.length; i++) {
+            errorMessage = rules[i](inputElement.value)
+            if (errorMessage) break // when error -> break
+        }
 
         if (errorMessage) {
             errorElement.innerText = errorMessage
@@ -19,11 +30,17 @@ function Validator(options) {
 
     if (formElement) {
         options.rules.forEach(function (rule) {
+            // save rules for each input
+            if (Array.isArray(selectorRules[rule.selector])) {
+                selectorRules[rule.selector].push(rule.test)
+            } else {
+                selectorRules[rule.selector] = [rule.test]
+            }
+
             // console.log(rule.selector) // return name, email
             var inputElement = formElement.querySelector(rule.selector)
 
             if (inputElement) {
-
                 // handle blur out of input
                 inputElement.onblur = function () {
                     validate(inputElement, rule)
