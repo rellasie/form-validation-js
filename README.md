@@ -22,4 +22,4 @@ This repository contains a form validation web project built with HTML, CSS, and
 3. Submit the form to see the validation in action.
 
 ## Acknowledgments
-Tutorial: [Javscript programming course](https://fullstack.edu.vn/learning/javascript-co-ban)
+Tutorial: [Javascript programming course](https://fullstack.edu.vn/learning/javascript-co-ban)
