@@ -63,7 +63,10 @@
                 Validator.isConfirmed('#password_confirmation', function() {
                     return document.querySelector('#form-1 #password').value // form-1: avoid mistaking other forms
                 }, 'Password incorrect, please try again')
-            ]
+            ],
+            onSubmit: function (data) {
+                console.log(data)
+            }
         })
     </script>
 </body>
