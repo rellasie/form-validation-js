@@ -23,12 +23,50 @@ function Validator(options) {
             errorElement.innerText = ''
             inputElement.parentElement.classList.remove('invalid')
         }
+
+        return !errorMessage
     }
 
     // get form's element
     var formElement = document.querySelector(options.form)
 
     if (formElement) {
+        // when submit button is clicked
+        formElement.onsubmit = function (e) {
+            e.preventDefault()
+
+            var isFormValid = true
+
+            // iterate through each rule, validate
+            options.rules.forEach(function (rule) {
+                var inputElement = formElement.querySelector(rule.selector)
+                var isValid = validate(inputElement, rule)
+                if (!isValid) {
+                    isFormValid = false
+                }
+            })
+
+            // console.log(formValues)
+
+            if (isFormValid) {
+                // console.log('No errors found')
+
+                if (typeof options.onSubmit === 'function') {
+                    var enableInputs = formElement.querySelectorAll('[name]')
+                    // select all fields with name attribute, and not disabled fields
+                    // console.log(enableInputs)
+        
+                    var formValues = Array.from(enableInputs).reduce(function (values, input) {
+                        return (values[input.name] = input.value) && values // gán input.value cho object values và return values
+                    }, {}) // get all values from inputs
+
+                    options.onSubmit(formValues)
+                }
+            }
+        }
+
+
+        // handle iteration through rules (blur, input,...)
         options.rules.forEach(function (rule) {
             // save rules for each input
             if (Array.isArray(selectorRules[rule.selector])) {
