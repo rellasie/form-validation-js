@@ -51,6 +51,7 @@ function Validator(options) {
             if (isFormValid) {
                 // console.log('No errors found')
 
+                // when submit with javascript
                 if (typeof options.onSubmit === 'function') {
                     var enableInputs = formElement.querySelectorAll('[name]')
                     // select all fields with name attribute, and not disabled fields
@@ -61,6 +62,9 @@ function Validator(options) {
                     }, {}) // get all values from inputs
 
                     options.onSubmit(formValues)
+                } else {
+                    // when submit with default action from browser
+                    formElement.submit()
                 }
             }
         }
