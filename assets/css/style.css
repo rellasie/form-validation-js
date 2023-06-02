@@ -64,14 +64,14 @@ html {
 .form-control {
     height: 40px;
     padding: 8px 12px;
-    border: 1px solid #b3b3b3;
+    border: 1px solid #9F2B68;
     border-radius: 3px;
     outline: none;
     font-size: 1.4rem;
 }
 
 .form-control:hover {
-    border-color: #1dbfaf;
+    border-color: #C9A9A6;
 }
 
 .form-group.invalid .form-control {
@@ -90,7 +90,7 @@ html {
 
 .form-submit {
     outline: none;
-    background-color: #1dbfaf;
+    background-color: #811331;
     margin-top: 12px;
     padding: 12px 16px;
     font-weight: 600;
@@ -103,7 +103,7 @@ html {
 }
 
 .form-submit:hover {
-    background-color: #1ac7b6;
+    background-color: #A95C68;
 }
 
 .spacer {
