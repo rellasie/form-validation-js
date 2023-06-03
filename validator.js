@@ -30,10 +30,10 @@ function Validator(options) {
 
         if (errorMessage) {
             errorElement.innerText = errorMessage
-            inputElement.parentElement.classList.add('invalid')
+            getParent(inputElement, options.formGroupSelector).classList.add('invalid')
         } else {
             errorElement.innerText = ''
-            inputElement.parentElement.classList.remove('invalid')
+            getParent(inputElement, options.formGroupSelector).classList.remove('invalid')
         }
 
         return !errorMessage
@@ -104,9 +104,9 @@ function Validator(options) {
 
                 // handle when a user add input
                 inputElement.oninput = function () {
-                    var errorElement = inputElement.parentElement.querySelector('.form-message')
+                    var errorElement = getParent(inputElement, options.formGroupSelector).querySelector('.form-message')
                     errorElement.innerText = ''
-                    inputElement.parentElement.classList.remove('invalid')
+                    getParent(inputElement, options.formGroupSelector).classList.remove('invalid')
                 }
             }
         })
