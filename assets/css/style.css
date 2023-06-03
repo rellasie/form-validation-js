@@ -49,6 +49,17 @@ html {
     flex-direction: column;
 }
 
+.form-group.radio {
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    font-size: 13px;   
+}
+
+.form-group input[type="radio"] {
+    margin-right: 3px;
+}
+
 .form-label,
 .form-message {
     text-align: left;
