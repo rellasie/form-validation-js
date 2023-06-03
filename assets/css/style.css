@@ -52,7 +52,7 @@ html {
 .form-group.radio {
     flex-direction: row;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
     font-size: 13px;   
 }
 
