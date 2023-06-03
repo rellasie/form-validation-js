@@ -20,7 +20,8 @@
 
             <div class="form-group">
                 <label for="fullname" class="form-label">Full name</label>
-                <input id="fullname" name="fullname" type="text" placeholder="Enter your full name" class="form-control">
+                <input id="fullname" name="fullname" type="text" placeholder="Enter your full name"
+                    class="form-control">
                 <span class="form-message"></span>
             </div>
 
@@ -32,7 +33,8 @@
 
             <div class="form-group">
                 <label for="password" class="form-label">Password</label>
-                <input id="password" name="password" type="password" placeholder="Enter your password" class="form-control">
+                <input id="password" name="password" type="password" placeholder="Enter your password"
+                    class="form-control">
                 <span class="form-message"></span>
             </div>
 
@@ -42,6 +44,24 @@
                     type="password" class="form-control">
                 <span class="form-message"></span>
             </div>
+
+            <div class="form-group radio">
+                <label for="gender" class="form-label">Gender</label>
+                <br><br>
+                <div>
+                    <input type="radio" id="male" name="gender" value="male">
+                    Male
+                </div>
+                <div>
+                    <input type="radio" id="female" name="gender" value="female">
+                    Female
+                </div>
+                <div>
+                    <input type="radio" id="other" name="gender" value="other">
+                    Other
+                </div>
+            </div>
+
 
             <button class="form-submit">Register</button>
         </form>
@@ -61,7 +81,7 @@
                 Validator.isEmail('#email'),
                 Validator.minLength('#password', 6),
                 Validator.isRequired('#password_confirmation'),
-                Validator.isConfirmed('#password_confirmation', function() {
+                Validator.isConfirmed('#password_confirmation', function () {
                     return document.querySelector('#form-1 #password').value // form-1: avoid mistaking other forms
                 }, 'Password incorrect, please try again')
             ],
