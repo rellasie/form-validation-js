@@ -56,8 +56,8 @@
             errorSelector: '.form-message',
             rules: [
                 Validator.isRequired('#fullname', 'Please enter your full name'),
-                Validator.isRequired('#email'),
-                Validator.isEmail('#email'),
+                // Validator.isRequired('#email'),
+                // Validator.isEmail('#email'),
                 Validator.minLength('#password', 6),
                 Validator.isRequired('#password_confirmation'),
                 Validator.isConfirmed('#password_confirmation', function() {
