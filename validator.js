@@ -94,8 +94,10 @@ function Validator(options) {
                                     values[input.name] = []
                                 }
                                 values[input.name].push(input.value) // push value into array
-
                                 break
+                            // case 'file':
+                            //     values[input.name] = input.files
+                            //     break
                             default:
                                 values[input.name] = input.value
                         } 
