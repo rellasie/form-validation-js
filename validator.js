@@ -1,9 +1,21 @@
 // Validator constructor function
 function Validator(options) {
+    function getParent(element, selector) {
+        while (element.parentElement) {
+            // check if matching
+            if (element.parentElement.matches(selector)) { 
+                return element.parentElement
+            }
+            element = element.parentElement // if not matching, assign to parent
+            // otherwise continue while loop
+        }
+    }
+
     var selectorRules = {} // save all the rules here
 
     function validate(inputElement, rule) {
-        var errorElement = inputElement.parentElement.querySelector(options.errorSelector)
+        // var errorElement = getParent(inputElement, '.form-group')
+        var errorElement = getParent(inputElement, options.formGroupSelector).querySelector(options.errorSelector)
         var errorMessage
 
         // get rules of selector
