@@ -28,13 +28,12 @@ function Validator(options) {
                 case 'radio':
                 case 'checkbox':
                     errorMessage = rules[i](
-                        formElement.querySelector(rule.selector + ':checked')   
+                        formElement.querySelector(rule.selector + ':checked')
                     )
                     break
                 default:
                     errorMessage = rules[i](inputElement.value)
             }
-            errorMessage = rules[i](inputElement.value)
             if (errorMessage) break // when error -> break
         }
 
@@ -81,7 +80,15 @@ function Validator(options) {
 
                     var formValues = Array.from(enableInputs).reduce(function (values, input) {
                         // gán input.value cho object values và return values
-                        values[input.name] = input.value
+                        
+                        switch(input.type) {
+                            case 'radio':
+                            case 'checkbox':
+                                values[input.name] = formElement.querySelector(`input[name="${input.name}"]:checked`).value
+                                break
+                            default:
+                                values[input.name] = input.value
+                        } 
                         return values
                     }, {})
 
@@ -104,9 +111,9 @@ function Validator(options) {
             }
 
             // console.log(rule.selector) // return name, email
-            var inputElement = formElement.querySelector(rule.selector)
+            var inputElements = formElement.querySelectorAll(rule.selector)
 
-            if (inputElement) {
+            Array.from(inputElements).forEach(function (inputElement) {
                 // handle blur out of input
                 inputElement.onblur = function () {
                     validate(inputElement, rule)
@@ -118,7 +125,7 @@ function Validator(options) {
                     errorElement.innerText = ''
                     getParent(inputElement, options.formGroupSelector).classList.remove('invalid')
                 }
-            }
+            })
         })
     }
 }
