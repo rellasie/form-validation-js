@@ -58,8 +58,10 @@ function Validator(options) {
                     // console.log(enableInputs)
         
                     var formValues = Array.from(enableInputs).reduce(function (values, input) {
-                        return (values[input.name] = input.value) && values // gán input.value cho object values và return values
-                    }, {}) // get all values from inputs
+                        // gán input.value cho object values và return values
+                        values[input.name] = input.value
+                        return values 
+                    }, {})
 
                     options.onSubmit(formValues)
                 } else {
