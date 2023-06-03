@@ -3,7 +3,7 @@ function Validator(options) {
     function getParent(element, selector) {
         while (element.parentElement) {
             // check if matching
-            if (element.parentElement.matches(selector)) { 
+            if (element.parentElement.matches(selector)) {
                 return element.parentElement
             }
             element = element.parentElement // if not matching, assign to parent
@@ -24,6 +24,16 @@ function Validator(options) {
         // iterate through rules & check for errors
         // if there's an error -> break the loop
         for (var i = 0; i < rules.length; i++) {
+            switch (inputElement.type) {
+                case 'radio':
+                case 'checkbox':
+                    errorMessage = rules[i](
+                        formElement.querySelector(rule.selector + ':checked')   
+                    )
+                    break
+                default:
+                    errorMessage = rules[i](inputElement.value)
+            }
             errorMessage = rules[i](inputElement.value)
             if (errorMessage) break // when error -> break
         }
@@ -68,11 +78,11 @@ function Validator(options) {
                     var enableInputs = formElement.querySelectorAll('[name]')
                     // select all fields with name attribute, and not disabled fields
                     // console.log(enableInputs)
-        
+
                     var formValues = Array.from(enableInputs).reduce(function (values, input) {
                         // gán input.value cho object values và return values
                         values[input.name] = input.value
-                        return values 
+                        return values
                     }, {})
 
                     options.onSubmit(formValues)
@@ -122,7 +132,7 @@ Validator.isRequired = function (selector, message) {
     return {
         selector: selector,
         test: function (value) {
-            return value.trim() ? undefined : message || 'Please enter this field'
+            return value ? undefined : message || 'Please enter this field'
         }
     }
 }
