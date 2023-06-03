@@ -45,6 +45,16 @@
                 <span class="form-message"></span>
             </div>
 
+            <div class="form-group">
+                <label for="province" class="form-label">City</label>
+                <select id="province" name="province" class="form-control">
+                    <option value="">-- Choose city --</option>
+                    <option value="hni">Hà Nội</option>
+                    <option value="hpg">Hải Phòng</option>
+                </select>
+                <span class="form-message"></span>
+            </div>
+
             <div class="form-group radio">
                 <label for="gender" class="form-label">Gender</label>
                 <div>
@@ -82,6 +92,7 @@
                 Validator.minLength('#password', 6),
                 Validator.isRequired('#password_confirmation'),
                 Validator.isRequired('input[name="gender"]'),
+                Validator.isRequired('#province'),
                 Validator.isConfirmed('#password_confirmation', function () {
                     return document.querySelector('#form-1 #password').value // form-1: avoid mistaking other forms
                 }, 'Password incorrect, please try again')
